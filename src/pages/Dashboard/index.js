@@ -16,6 +16,13 @@ const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
+  useEffect(() =>{
+    api.get('foods')
+    .then(response => {
+      setFoods(response.data);
+    })
+  }, foods);
+
   async function handleAddFood(food) {
     try {
       // TODO ADD A NEW FOOD PLATE TO THE API
