@@ -4,15 +4,26 @@ import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 import { Container } from './styles';
 
-const Food = ({ food, handleDelete, handleEditFood }) => {
+import api from '../../services/api';
+
+const Food = ({ food, handleDelete, handleEditFood, openModal }) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable() {
     // TODO UPDATE STATUS (available)
+    setIsAvailable(!isAvailable);
+    food.available = !food.available;
+
+    await api.patch(`foods/${food.id}`, food)
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   function setEditingFood() {
     // TODO - SET THE ID OF THE CURRENT ITEM TO THE EDITING FOOD AND OPEN MODAL
+    handleEditFood(food);
+    openModal();
   }
 
   return (

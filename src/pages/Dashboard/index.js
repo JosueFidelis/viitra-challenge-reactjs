@@ -34,6 +34,10 @@ const Dashboard = () => {
 
   async function handleUpdateFood(food) {
     // TODO UPDATE A FOOD PLATE ON THE API
+    await api.patch(`foods/${editingFood}`, food)
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   async function handleDeleteFood(id) {
@@ -48,8 +52,9 @@ const Dashboard = () => {
     setEditModalOpen(!editModalOpen);
   }
 
-  function handleEditFood(food) {
+  async function handleEditFood(food) {
     // TODO SET THE CURRENT EDITING FOOD ID IN THE STATE
+    setEditingFood(food.id);
   }
 
   return (
@@ -75,6 +80,7 @@ const Dashboard = () => {
               food={food}
               handleDelete={handleDeleteFood}
               handleEditFood={handleEditFood}
+              openModal={toggleEditModal}
             />
           ))}
       </FoodsContainer>
