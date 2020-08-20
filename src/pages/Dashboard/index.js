@@ -42,6 +42,7 @@ const Dashboard = () => {
 
   async function handleDeleteFood(id) {
     // TODO DELETE A FOOD PLATE FROM THE API
+    await api.delete(`foods/${id}`);
   }
 
   function toggleModal() {
