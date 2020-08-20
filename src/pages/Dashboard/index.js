@@ -26,6 +26,7 @@ const Dashboard = () => {
   async function handleAddFood(food) {
     try {
       // TODO ADD A NEW FOOD PLATE TO THE API
+      await api.post('foods', food);
     } catch (err) {
       console.log(err);
     }
