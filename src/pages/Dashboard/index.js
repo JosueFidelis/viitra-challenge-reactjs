@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
 
@@ -16,12 +17,18 @@ const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
-  useEffect(() =>{
-    api.get('foods')
+  const history = useHistory();
+
+  useEffect(() => {
+    getFoods();
+  }, []);
+
+  async function getFoods() {
+    await api.get('foods')
     .then(response => {
       setFoods(response.data);
     })
-  }, foods);
+  }
 
   async function handleAddFood(food) {
     try {
@@ -58,6 +65,10 @@ const Dashboard = () => {
     setEditingFood(food.id);
   }
 
+  function handleRouting(id) {
+    history.push(`/fooddetails/${id}`);
+  }
+
   return (
     <>
       <Header openModal={toggleModal} />
@@ -82,6 +93,7 @@ const Dashboard = () => {
               handleDelete={handleDeleteFood}
               handleEditFood={handleEditFood}
               openModal={toggleEditModal}
+              routing={handleRouting}
             />
           ))}
       </FoodsContainer>

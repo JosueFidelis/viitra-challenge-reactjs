@@ -6,7 +6,7 @@ import { Container } from './styles';
 
 import api from '../../services/api';
 
-const Food = ({ food, handleDelete, handleEditFood, openModal }) => {
+const Food = ({ food, handleDelete, handleEditFood, openModal, routing }) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable() {
@@ -26,9 +26,13 @@ const Food = ({ food, handleDelete, handleEditFood, openModal }) => {
     openModal();
   }
 
+  function passIDtoRouter() {
+    routing(food.id);
+  }
+
   return (
     <Container available={isAvailable}>
-      <header>
+      <header onClick={passIDtoRouter}>
         <img src={food.image} alt={food.name} />
       </header>
       <section className="body">
