@@ -16,12 +16,13 @@ const Dashboard = () => {
   const [editingFood, setEditingFood] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [changes, setChanges] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
     getFoods();
-  }, []);
+  }, [changes]);
 
   async function getFoods() {
     await api.get('foods')
@@ -33,7 +34,10 @@ const Dashboard = () => {
   async function handleAddFood(food) {
     try {
       // TODO ADD A NEW FOOD PLATE TO THE API
-      await api.post('foods', food);
+      await api.post('foods', food)
+      .then(() => {
+        setChanges(!changes);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -42,6 +46,9 @@ const Dashboard = () => {
   async function handleUpdateFood(food) {
     // TODO UPDATE A FOOD PLATE ON THE API
     await api.patch(`foods/${editingFood}`, food)
+    .then(() => {
+      setChanges(!changes);
+    })
     .catch(err => {
       console.log(err);
     });
@@ -49,7 +56,10 @@ const Dashboard = () => {
 
   async function handleDeleteFood(id) {
     // TODO DELETE A FOOD PLATE FROM THE API
-    await api.delete(`foods/${id}`);
+    await api.delete(`foods/${id}`)
+    .then(()=>{
+      setChanges(!changes);
+    });
   }
 
   function toggleModal() {

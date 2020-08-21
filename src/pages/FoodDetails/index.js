@@ -18,7 +18,6 @@ const FoodDetails = () => {
     api.get(`foods/?id=${query.id}`)
     .then( response => {
         setFood(response.data[0]);
-        console.log(response.data[0]);
     });
   }
 
