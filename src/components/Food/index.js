@@ -9,19 +9,22 @@ import api from '../../services/api';
 const Food = ({ food, handleDelete, handleEditFood, openModal, routing }) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
+  /**
+   * Gets the availability status of the food and stores in the server.
+   */
   async function toggleAvailable() {
-    // TODO UPDATE STATUS (available)
     setIsAvailable(!isAvailable);
     food.available = !food.available;
 
-    await api.patch(`foods/${food.id}`, food)
-    .catch(err => {
+    await api.patch(`foods/${food.id}`, food).catch(err => {
       console.log(err);
     });
   }
 
+  /**
+   * Sets the ID of the current item and open the modal.
+   */
   function setEditingFood() {
-    // TODO - SET THE ID OF THE CURRENT ITEM TO THE EDITING FOOD AND OPEN MODAL
     handleEditFood(food);
     openModal();
   }

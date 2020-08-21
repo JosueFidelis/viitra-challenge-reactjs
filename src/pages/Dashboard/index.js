@@ -21,21 +21,25 @@ const Dashboard = () => {
   const history = useHistory();
 
   useEffect(() => {
-    getFoods();
+    getFoodList();
   }, [changes]);
 
-  async function getFoods() {
-    await api.get('foods')
-    .then(response => {
+  /**
+   * Request food list from server and updates it.
+   */
+  async function getFoodList() {
+    await api.get('foods').then(response => {
       setFoods(response.data);
-    })
+    });
   }
 
+  /**
+   * Add a new food in the server's food list.
+   * @param {Object} food Object that represents a food from the food list.
+   */
   async function handleAddFood(food) {
     try {
-      // TODO ADD A NEW FOOD PLATE TO THE API
-      await api.post('foods', food)
-      .then(() => {
+      await api.post('foods', food).then(() => {
         setChanges(!changes);
       });
     } catch (err) {
@@ -43,21 +47,27 @@ const Dashboard = () => {
     }
   }
 
+  /**
+   * Changes informations about a food and stores the changes in the server.
+   * @param {Object} food Object that represents a food from the food list.
+   */
   async function handleUpdateFood(food) {
-    // TODO UPDATE A FOOD PLATE ON THE API
-    await api.patch(`foods/${editingFood}`, food)
-    .then(() => {
-      setChanges(!changes);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    await api
+      .patch(`foods/${editingFood}`, food)
+      .then(() => {
+        setChanges(!changes);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
+  /**
+   * Delete a food from the server's food list.
+   * @param {number} id Food's identification number.
+   */
   async function handleDeleteFood(id) {
-    // TODO DELETE A FOOD PLATE FROM THE API
-    await api.delete(`foods/${id}`)
-    .then(()=>{
+    await api.delete(`foods/${id}`).then(() => {
       setChanges(!changes);
     });
   }
@@ -71,10 +81,13 @@ const Dashboard = () => {
   }
 
   async function handleEditFood(food) {
-    // TODO SET THE CURRENT EDITING FOOD ID IN THE STATE
     setEditingFood(food.id);
   }
 
+  /**
+   * Redirects the page to the FoodDetails page.
+   * @param {number} id Food's identification number.
+   */
   function handleRouting(id) {
     history.push(`/fooddetails/${id}`);
   }

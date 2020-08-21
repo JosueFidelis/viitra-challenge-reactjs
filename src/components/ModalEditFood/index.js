@@ -13,8 +13,11 @@ const ModalEditFood = ({
 }) => {
   const formRef = useRef(null);
 
+  /**
+   * Edits a food plate and close the modal.
+   * @param {*} data Data of the food that will be updated to the database.
+   */
   function handleSubmit(data) {
-    // EDIT A FOOD PLATE AND CLOSE THE MODAL
     handleUpdateFood(data);
     setIsOpen();
   }

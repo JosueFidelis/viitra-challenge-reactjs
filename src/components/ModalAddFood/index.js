@@ -8,8 +8,11 @@ import Input from '../Input';
 const ModalAddFood = ({ isOpen, setIsOpen, handleAddFood }) => {
   const formRef = useRef(null);
 
+  /**
+   * Adds a new food and closes the modal.
+   * @param {Object} data Data of the food that will be added to the database.
+   */
   function handleSubmit(data) {
-    // TODO ADD A NEW FOOD AND CLOSE THE MODAL
     handleAddFood(data);
     setIsOpen();
   }

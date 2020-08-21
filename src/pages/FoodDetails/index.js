@@ -14,6 +14,9 @@ const FoodDetails = () => {
     getFood();
   }, []);
 
+  /**
+   * Requests to the server the food plate that will be displayed.
+   */
   async function getFood() {
     api.get(`foods/?id=${query.id}`)
     .then( response => {
@@ -50,7 +53,5 @@ const FoodDetails = () => {
     </FoodsContainer>
     </>
   );
-
 }
-
 export default FoodDetails;
